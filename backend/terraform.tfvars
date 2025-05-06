@@ -1,3 +1,3 @@
-bucket_name         = "s3-bucket-for-boto3"
+bucket_name         = "prameshwar-terraform-backend-eks-2025-8f3d"
 dynamodb_table_name = "terraform-lock-table"
 region              = "us-east-1"
