@@ -37,7 +37,8 @@ jobs:
 
     - name: Terraform Plan Backend
       working-directory: backend/
-      run: terraform plan
+      run: terraform plan -var="bucket_name=s3-bucket-for-boto3" -var="dynamodb_table_name=dynamodb-lock-table-here"
+
 
     - name: Terraform Apply Backend
       working-directory: backend/
