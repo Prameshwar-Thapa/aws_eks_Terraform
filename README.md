@@ -14,9 +14,6 @@ This project provisions a highly available **Amazon EKS Cluster**, **VPC**, **IA
 - **IAM Roles** for EKS cluster and nodes
 - **GitHub Actions** for automated Terraform Plan/Apply
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/your-architecture-diagram.png" alt="EKS Architecture" width="700"/>
-</p>
 
 ---
 
@@ -60,9 +57,6 @@ kubectl installed (for accessing EKS)
 
 🚀 Usage
 1️⃣ Deploy the Backend (S3 + DynamoDB)
-bash
-Copy
-Edit
 cd backend/
 terraform init
 terraform apply -auto-approve
@@ -73,9 +67,6 @@ S3 Bucket for Terraform state
 DynamoDB table for state locking
 
 2️⃣ Deploy the Infrastructure
-bash
-Copy
-Edit
 cd environments/dev/
 terraform init
 terraform apply -auto-approve
@@ -113,15 +104,9 @@ Automatic deployment 🚀
 Important: You must destroy in the right order!
 
 1️⃣ Destroy Infrastructure
-bash
-Copy
-Edit
 cd environments/dev/
 terraform destroy -auto-approve
 2️⃣ Destroy Backend
-bash
-Copy
-Edit
 cd ../../backend/
 terraform destroy -auto-approve
 ✅ This ensures proper cleanup of AWS resources!
