@@ -1,0 +1,57 @@
+name: Terraform EKS Deployment 🚀
+
+on:
+  push:
+    branches:
+      - main   # Trigger when you push to main branch
+  workflow_dispatch:  # Manual trigger option
+
+jobs:
+  terraform:
+    name: 'Terraform Infrastructure Deployment'
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: us-west-2    # ✅ Change if you use another region
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.8.0
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    # 📦 Step 1: Deploy Backend First
+    - name: Terraform Init Backend
+      working-directory: backend/
+      run: terraform init
+
+    - name: Terraform Plan Backend
+      working-directory: backend/
+      run: terraform plan
+
+    - name: Terraform Apply Backend
+      working-directory: backend/
+      run: terraform apply -auto-approve
+
+    # 🚀 Step 2: Deploy Main Infrastructure (EKS, VPC, IAM)
+    - name: Terraform Init Environment
+      working-directory: environments/dev/
+      run: terraform init
+
+    - name: Terraform Plan Environment
+      working-directory: environments/dev/
+      run: terraform plan
+
+    - name: Terraform Apply Environment
+      working-directory: environments/dev/
+      run: terraform apply -auto-approve
